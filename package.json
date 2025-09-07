@@ -1,5 +1,5 @@
 {
-  "name": "rust-marketing-intelligence",
+  "name": "arc-marketing-intelligence",
   "private": true,
   "scripts": {
     "build": "turbo build",

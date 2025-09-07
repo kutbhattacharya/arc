@@ -1,5 +1,5 @@
 """
-Rust Marketing Intelligence ML Service
+Arc Marketing Intelligence ML service
 
 FastAPI service for NLP, trend detection, and recommendations.
 Built with transparency and explainability in mind.
@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Application lifespan manager"""
-    logger.info("🤖 Starting Rust ML Service...")
+    logger.info("🤖 Starting Arc ML Service...")
     
     # Download and cache models
     try:
@@ -48,12 +48,12 @@ async def lifespan(app: FastAPI):
     
     yield
     
-    logger.info("🛑 Shutting down Rust ML Service...")
+    logger.info("🛑 Shutting down Arc ML Service...")
 
 # Create FastAPI app
 app = FastAPI(
-    title="Rust ML Service",
-    description="Marketing Intelligence ML Service for sentiment analysis, trend detection, and recommendations",
+    title="Arc ML Service",
+    description="Marketing Intelligence ML service for sentiment analysis, trend detection, and recommendations",
     version="1.0.0",
     docs_url="/docs",
     redoc_url="/redoc",
@@ -79,7 +79,7 @@ app.include_router(recommendations.router, prefix="/recommendations", tags=["rec
 async def root():
     """Root endpoint with service info"""
     return {
-        "service": "Rust ML Service",
+        "service": "Arc ML Service",
         "version": "1.0.0",
         "status": "running",
         "docs": "/docs",
@@ -107,5 +107,7 @@ if __name__ == "__main__":
         reload=settings.environment == "development",
         log_level="info"
     )
+
+
 
 

@@ -139,7 +139,7 @@ export function CommandBar() {
               <div className="p-4 border-t border-border bg-muted/20">
                 <div className="flex items-center justify-between text-xs text-muted-foreground">
                   <span>Press ↑↓ to navigate, Enter to select</span>
-                  <span>Rust Command Palette</span>
+                  <span>Arc Command Palette</span>
                 </div>
               </div>
             </div>

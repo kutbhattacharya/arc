@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🚀 Setting up Rust Marketing Intelligence Platform..."
+echo "🚀 Setting up Arc Marketing Intelligence Platform..."
 
 # Check if pnpm is installed
 if ! command -v pnpm &> /dev/null; then
@@ -37,4 +37,5 @@ echo "🔌 API: http://localhost:4000"
 echo "📚 API Docs: http://localhost:4000/api/docs"
 echo "🤖 ML Service: http://localhost:8000"
 echo ""
-echo "Demo account: demo@rust.app / DemoPassword123!"
+echo "Demo account: demo@arc.app / DemoPassword123!"
+

@@ -4,7 +4,7 @@ services:
   # PostgreSQL Database
   postgres:
     image: postgres:15
-    container_name: rust-postgres
+    container_name: arc-postgres
     restart: unless-stopped
     environment:
       POSTGRES_DB: rust
@@ -24,7 +24,7 @@ services:
   # Redis for queues and caching
   redis:
     image: redis:7-alpine
-    container_name: rust-redis
+    container_name: arc-redis
     restart: unless-stopped
     ports:
       - "6379:6379"
@@ -42,7 +42,7 @@ services:
       context: .
       dockerfile: ./docker/web/Dockerfile
       target: development
-    container_name: rust-web
+    container_name: arc-web
     restart: unless-stopped
     ports:
       - "3000:3000"
@@ -71,7 +71,7 @@ services:
       context: .
       dockerfile: ./docker/api/Dockerfile
       target: development
-    container_name: rust-api
+    container_name: arc-api
     restart: unless-stopped
     ports:
       - "4000:4000"
@@ -99,7 +99,7 @@ services:
       context: .
       dockerfile: ./docker/ml/Dockerfile
       target: development
-    container_name: rust-ml
+    container_name: arc-ml
     restart: unless-stopped
     ports:
       - "8000:8000"
@@ -122,7 +122,7 @@ services:
       context: .
       dockerfile: ./docker/ingest/Dockerfile
       target: development
-    container_name: rust-ingest
+    container_name: arc-ingest
     restart: unless-stopped
     environment:
       - NODE_ENV=development
@@ -154,6 +154,6 @@ volumes:
 
 networks:
   default:
-    name: rust-network
+    name: arc-network
 
 

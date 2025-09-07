@@ -1,4 +1,4 @@
-# Rust Voice & Tone Guide
+# Arc Voice & Tone Guide
 
 ## Voice Principles
 
@@ -153,5 +153,6 @@ We believe in growth and success, but we don't oversell or promise magic bullets
 - "You're all set! Time to explore your data"
 
 Remember: Every word should earn its place. If it doesn't help the user understand or take action, cut it.
+
 
 

@@ -47,7 +47,7 @@ export function Sidebar() {
         <div className="flex h-16 items-center px-6 border-b border-border">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-lg bg-brand-gradient flex items-center justify-center">
-              <span className="text-white font-bold text-sm">R</span>
+              <span className="text-white font-bold text-sm">A</span>
             </div>
             {!isCollapsed && (
               <motion.span
@@ -56,7 +56,7 @@ export function Sidebar() {
                 transition={{ delay: 0.2 }}
                 className="text-xl font-display font-bold"
               >
-                Rust
+                Arc
               </motion.span>
             )}
           </div>
@@ -112,7 +112,7 @@ export function Sidebar() {
                 className="flex-1 min-w-0"
               >
                 <p className="text-sm font-medium truncate">Demo User</p>
-                <p className="text-xs text-muted-foreground truncate">demo@rust.app</p>
+                <p className="text-xs text-muted-foreground truncate">demo@arc.app</p>
               </motion.div>
             )}
           </div>

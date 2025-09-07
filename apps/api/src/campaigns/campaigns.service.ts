@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { prisma } from '@rust/db'
+import { prisma } from '@arc/db'
 
 @Injectable()
 export class CampaignsService {
@@ -42,3 +42,4 @@ export class CampaignsService {
     })
   }
 }
+

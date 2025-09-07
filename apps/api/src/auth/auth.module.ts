@@ -18,8 +18,8 @@ import { UsersModule } from '../users/users.module'
         secret: configService.get<string>('JWT_SECRET'),
         signOptions: {
           expiresIn: configService.get<string>('JWT_EXPIRES_IN', '24h'),
-          issuer: 'rust-api',
-          audience: 'rust-app',
+          issuer: 'arc-api',
+          audience: 'arc-app',
         },
       }),
       inject: [ConfigService],

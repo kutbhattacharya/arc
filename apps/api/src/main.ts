@@ -32,7 +32,7 @@ async function bootstrap() {
   // CORS
   app.enableCors({
     origin: process.env.NODE_ENV === 'production' 
-      ? ['https://rust.app', 'https://www.rust.app']
+      ? ['https://arc.app', 'https://www.arc.app']
       : ['http://localhost:3000', 'http://127.0.0.1:3000'],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
@@ -57,7 +57,7 @@ async function bootstrap() {
 
   // OpenAPI/Swagger documentation
   const config = new DocumentBuilder()
-    .setTitle('Rust Marketing Intelligence API')
+    .setTitle('Arc Marketing Intelligence API')
     .setDescription('The marketing intelligence platform built for creators and SMBs')
     .setVersion('1.0')
     .addBearerAuth(
@@ -94,7 +94,7 @@ async function bootstrap() {
   const port = process.env.PORT || 4000
   await app.listen(port)
   
-  console.log(`🚀 Rust API is running on: http://localhost:${port}`)
+  console.log(`🚀 Arc API is running on: http://localhost:${port}`)
   console.log(`📚 API Documentation: http://localhost:${port}/api/docs`)
 }
 
@@ -102,5 +102,6 @@ bootstrap().catch((error) => {
   console.error('Failed to start application:', error)
   process.exit(1)
 })
+
 
 

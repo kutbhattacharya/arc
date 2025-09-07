@@ -1,6 +1,6 @@
 import { Job } from 'bullmq'
 import { createLogger } from '../lib/logger'
-import { prisma } from '@rust/db'
+import { prisma } from '@arc/db'
 
 const logger = createLogger('instagram-ingest')
 
@@ -160,3 +160,4 @@ export class InstagramIngestJob {
     }
   }
 }
+

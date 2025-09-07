@@ -1,5 +1,5 @@
 {
-  "name": "@rust/ingest",
+  "name": "@arc/ingest",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,7 +9,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@rust/db": "workspace:*",
+    "@arc/db": "workspace:*",
     "bullmq": "^4.15.4",
     "ioredis": "^5.3.2",
     "axios": "^1.6.2",

@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common'
-import { prisma } from '@rust/db'
+import { prisma } from '@arc/db'
 
 @Injectable()
 export class WorkspacesService {
@@ -131,3 +131,4 @@ export class WorkspacesService {
     }
   }
 }
+

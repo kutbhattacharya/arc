@@ -1,5 +1,5 @@
 import { Injectable, OnModuleInit } from '@nestjs/common'
-import { PrismaClient } from '@rust/db'
+import { PrismaClient } from '@arc/db'
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
@@ -7,3 +7,4 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
     await this.$connect()
   }
 }
+

@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document outlines the comprehensive security measures implemented in the Rust Marketing Intelligence platform, following OWASP ASVS (Application Security Verification Standard) guidelines.
+This document outlines the comprehensive security measures implemented in the Arc Marketing Intelligence platform, following OWASP ASVS (Application Security Verification Standard) guidelines.
 
 ## Authentication & Authorization
 
@@ -174,9 +174,9 @@ npm run security:sast
 6. **Lessons Learned**: Post-incident review
 
 ### Contact Information
-- **Security Team**: security@rust.app
+- **Security Team**: security@arc.app
 - **Incident Response**: +1-555-SECURITY
-- **Bug Bounty**: security@rust.app
+- **Bug Bounty**: security@arc.app
 
 ## Best Practices
 
@@ -221,3 +221,4 @@ npm run security:sast
 **Last Updated**: January 2024  
 **Version**: 1.0  
 **Review Cycle**: Quarterly
+

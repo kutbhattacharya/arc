@@ -1,5 +1,5 @@
 /**
- * Rust Ingest Worker
+ * Arc Ingest Worker
  * 
  * Background worker for scheduled data pulls from various platforms
  * using BullMQ for job queuing and Redis for persistence.
@@ -83,9 +83,10 @@ process.on('SIGINT', async () => {
   process.exit(0)
 })
 
-logger.info('🚀 Rust Ingest Worker started')
+logger.info('🚀 Arc Ingest Worker started')
 logger.info('Queues:', Object.keys(queues))
 logger.info('Workers:', Object.keys(workers))
 
 // Export queues for external use
 export { queues }
+

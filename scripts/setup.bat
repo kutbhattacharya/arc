@@ -1,5 +1,5 @@
 @echo off
-echo 🚀 Setting up Rust Marketing Intelligence Platform...
+echo 🚀 Setting up Arc Marketing Intelligence Platform...
 
 REM Check if pnpm is installed
 where pnpm >nul 2>nul
@@ -40,5 +40,6 @@ echo 🔌 API: http://localhost:4000
 echo 📚 API Docs: http://localhost:4000/api/docs
 echo 🤖 ML Service: http://localhost:8000
 echo.
-echo Demo account: demo@rust.app / DemoPassword123!
+echo Demo account: demo@arc.app / DemoPassword123!
 pause
+

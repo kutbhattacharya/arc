@@ -25,24 +25,24 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Rust - Turn vibes into revenue',
+  title: 'Arc - Turn vibes into revenue',
   description: 'Comments, trends, and spend decoded. Timing, hooks, and ROI recommended.',
   keywords: ['marketing', 'intelligence', 'analytics', 'social media', 'ROI', 'SMB', 'creators'],
-  authors: [{ name: 'Rust Team' }],
-  creator: 'Rust',
+  authors: [{ name: 'Arc Team' }],
+  creator: 'Arc',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://rust.app',
-    title: 'Rust - Turn vibes into revenue',
+    url: 'https://kutbhattacharya.github.io/arc',
+    title: 'Arc - Turn vibes into revenue',
     description: 'Comments, trends, and spend decoded. Timing, hooks, and ROI recommended.',
-    siteName: 'Rust',
+    siteName: 'Arc',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Rust - Turn vibes into revenue',
+    title: 'Arc - Turn vibes into revenue',
     description: 'Comments, trends, and spend decoded. Timing, hooks, and ROI recommended.',
-    creator: '@rust_app',
+    creator: '@arc_app',
   },
   robots: {
     index: true,

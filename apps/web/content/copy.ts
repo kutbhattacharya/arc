@@ -1,5 +1,5 @@
 /**
- * Centralized copy management for Rust Marketing Intelligence
+ * Centralized copy management for Arc Marketing Intelligence
  * 
  * Tone: Creator-centric, fun, punchy, helpful
  * Voice: Confident but not cocky, data-driven but human
@@ -155,7 +155,7 @@ export const copy = {
 
   // Onboarding
   onboarding: {
-    welcome: "Welcome to Rust",
+    welcome: "Welcome to Arc",
     subtitle: "Let's connect your channels and get you set up",
     steps: {
       connect: "Connect Channels",

@@ -1,6 +1,6 @@
 import { Job } from 'bullmq'
 import { createLogger } from '../lib/logger'
-import { prisma } from '@rust/db'
+import { prisma } from '@arc/db'
 
 const logger = createLogger('google-ads-ingest')
 
@@ -158,3 +158,4 @@ export class GoogleAdsIngestJob {
     }
   }
 }
+
