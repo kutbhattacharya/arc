@@ -1,0 +1,351 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  OWNER
+  MANAGER
+  MEMBER
+}
+
+enum Platform {
+  YOUTUBE
+  INSTAGRAM
+  GOOGLE_ADS
+  META_ADS
+  STRIPE
+  SHOPIFY
+  TIKTOK
+  X
+}
+
+enum Sentiment {
+  NEG
+  NEU
+  POS
+}
+
+enum AttributionModel {
+  LAST_CLICK
+  LINEAR
+  TIME_DECAY
+  POSITION_BASED
+}
+
+enum RecommendationScope {
+  CONTENT
+  SPEND
+  TIMING
+  TREND
+}
+
+enum JobStatus {
+  PENDING
+  RUNNING
+  COMPLETED
+  FAILED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String   @unique
+  role      UserRole @default(MEMBER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  ownedWorkspaces    Workspace[]       @relation("WorkspaceOwner")
+  workspaceMembers   WorkspaceMember[]
+  accounts           Account[]
+  sessions           Session[]
+
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+model Workspace {
+  id        String   @id @default(cuid())
+  name      String
+  ownerId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  owner               User                  @relation("WorkspaceOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  members             WorkspaceMember[]
+  accountConnections  AccountConnection[]
+  channels            Channel[]
+  campaigns           Campaign[]
+  trends              Trend[]
+  recommendations     Recommendation[]
+
+  @@map("workspaces")
+}
+
+model WorkspaceMember {
+  id          String   @id @default(cuid())
+  workspaceId String
+  userId      String
+  role        UserRole @default(MEMBER)
+  createdAt   DateTime @default(now())
+
+  // Relations
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, userId])
+  @@map("workspace_members")
+}
+
+model AccountConnection {
+  id           String   @id @default(cuid())
+  workspaceId  String
+  platform     Platform
+  accessToken  String?  @db.Text
+  refreshToken String?  @db.Text
+  metaJson     Json?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, platform])
+  @@map("account_connections")
+}
+
+model Channel {
+  id          String   @id @default(cuid())
+  workspaceId String
+  platform    Platform
+  externalId  String
+  handle      String?
+  displayName String
+  metaJson    Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  workspace    Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  contentItems ContentItem[]
+
+  @@unique([workspaceId, platform, externalId])
+  @@map("channels")
+}
+
+model ContentItem {
+  id          String    @id @default(cuid())
+  channelId   String
+  platform    Platform
+  externalId  String
+  url         String?
+  title       String
+  publishedAt DateTime?
+  metricsJson Json?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Relations
+  channel  Channel   @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  comments Comment[]
+
+  @@unique([channelId, platform, externalId])
+  @@map("content_items")
+}
+
+model Comment {
+  id            String     @id @default(cuid())
+  contentItemId String
+  platform      Platform
+  externalId    String
+  author        String
+  text          String     @db.Text
+  publishedAt   DateTime?
+  likeCount     Int?       @default(0)
+  sentiment     Sentiment?
+  topicTags     String[]
+  metaJson      Json?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  // Relations
+  contentItem ContentItem @relation(fields: [contentItemId], references: [id], onDelete: Cascade)
+
+  @@unique([contentItemId, platform, externalId])
+  @@map("comments")
+}
+
+model Campaign {
+  id           String   @id @default(cuid())
+  workspaceId  String
+  name         String
+  objective    String?
+  startDate    DateTime
+  endDate      DateTime?
+  channelsJson Json?
+  budgetsJson  Json?
+  utmJson      Json?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  spends    Spend[]
+  roiViews  ROIView[]
+
+  @@map("campaigns")
+}
+
+model Spend {
+  id          String   @id @default(cuid())
+  campaignId  String
+  platform    Platform
+  date        DateTime
+  spend       Float    @default(0)
+  impressions Int?     @default(0)
+  clicks      Int?     @default(0)
+  conversions Int?     @default(0)
+  revenue     Float?   @default(0)
+  metaJson    Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  campaign Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@unique([campaignId, platform, date])
+  @@map("spends")
+}
+
+model ROIView {
+  id               String           @id @default(cuid())
+  campaignId       String
+  period           String
+  spend            Float            @default(0)
+  revenue          Float            @default(0)
+  cac              Float?           @default(0)
+  roas             Float?           @default(0)
+  clv              Float?           @default(0)
+  attributionModel AttributionModel @default(LAST_CLICK)
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  // Relations
+  campaign Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@unique([campaignId, period, attributionModel])
+  @@map("roi_views")
+}
+
+model Trend {
+  id          String   @id @default(cuid())
+  workspaceId String
+  platform    Platform
+  tag         String
+  score       Float
+  velocity    Float
+  periodStart DateTime
+  periodEnd   DateTime
+  metaJson    Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, platform, tag, periodStart, periodEnd])
+  @@map("trends")
+}
+
+model Recommendation {
+  id             String              @id @default(cuid())
+  workspaceId    String
+  scope          RecommendationScope
+  title          String
+  body           String              @db.Text
+  rationaleJson  Json?
+  actionJson     Json?
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+
+  // Relations
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@map("recommendations")
+}
+
+model JobRun {
+  id          String    @id @default(cuid())
+  type        String
+  status      JobStatus @default(PENDING)
+  startedAt   DateTime  @default(now())
+  finishedAt  DateTime?
+  payloadJson Json?
+  errorText   String?   @db.Text
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("job_runs")
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  workspaceId String
+  userId      String
+  action      String
+  entityType  String
+  entityId    String?
+  metaJson    Json?
+  createdAt   DateTime @default(now())
+
+  @@map("audit_logs")
+}
+
+
